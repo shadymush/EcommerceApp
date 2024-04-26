@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Checkout"
+    android:id="@+id/checkoutLayout">
+
+    <TextView
+        android:id="@+id/checkOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CHECKOUT"
+        android:textColor="#0746E6"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="78dp" />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Name"
+        android:padding="12dp"
+        android:background="@drawable/checkout_editttext"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+
+    <EditText
+        android:id="@+id/address"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Address"
+        android:background="@drawable/checkout_editttext"
+        android:padding="12dp"
+        android:layout_marginTop="12dp"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/name"
+        app:layout_constraintStart_toStartOf="@+id/name"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+    <EditText
+        android:id="@+id/phoneNumber"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_marginTop="12dp"
+        android:inputType="text"
+        android:background="@drawable/checkout_editttext"
+        android:padding="12dp"
+        android:hint="Phone Number"
+        app:layout_constraintEnd_toEndOf="@+id/address"
+        app:layout_constraintStart_toStartOf="@+id/address"
+        app:layout_constraintTop_toBottomOf="@+id/address" />
+
+    <RelativeLayout
+        android:id="@+id/itemRelativeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/phoneNumber"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/phoneNumber"
+        app:layout_constraintTop_toBottomOf="@+id/phoneNumber"
+        app:layout_constraintVertical_bias="0.060000002">
+
+        <TextView
+            android:id="@+id/txtItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Item Ordered:"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/itemName"
+            android:layout_toRightOf="@+id/txtItem"
+            android:text=""
+            android:layout_marginLeft="12dp"/>
+
+<!--        <TextView-->
+<!--            android:id="@+id/txtQuantity"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Quantity:"-->
+<!--            android:textStyle="bold"-->
+<!--            android:layout_below="@+id/txtItem"-->
+<!--            android:layout_marginTop="12dp"-->
+<!--            />-->
+<!--        -->
+<!--            -->
+
+<!--        <EditText-->
+<!--            android:layout_width="60dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:inputType="number"-->
+<!--            android:id="@+id/quantity"-->
+<!--            android:layout_toRightOf="@+id/txtQuantity"-->
+<!--            android:layout_marginTop="12dp"-->
+<!--            android:layout_marginLeft="12dp"/>-->
+
+        <TextView
+        android:id="@+id/txtUnitPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Price:"
+        android:layout_below="@+id/txtItem"
+        android:layout_marginTop="12dp"
+        android:textStyle="bold"
+        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/unitPrice"
+            android:layout_toRightOf="@+id/txtUnitPrice"
+            android:text=""
+            android:layout_below="@+id/txtItem"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="12dp"/>
+
+<!--        <TextView-->
+<!--            android:id="@+id/txtTotalPrice"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Total Price:"-->
+<!--            android:layout_below="@+id/txtUnitPrice"-->
+<!--            android:layout_marginTop="12dp"-->
+<!--            android:textStyle="bold"-->
+<!--            />-->
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/totalPrice"-->
+<!--            android:layout_toRightOf="@+id/txtTotalPrice"-->
+<!--            android:text=""-->
+<!--            android:layout_below="@+id/txtUnitPrice"-->
+<!--            android:layout_marginLeft="12dp"-->
+<!--            android:layout_marginTop="12dp"/>-->
+
+
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnCheckout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CHECKOUT"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        app:layout_constraintVertical_bias="0.13999999" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="422dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
