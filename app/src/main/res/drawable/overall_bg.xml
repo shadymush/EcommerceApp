@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background layer with your image -->
+    <item android:drawable="@drawable/white_blue_bg" />
+
+    <!-- Overlay layer for applying transparency -->
+    <item>
+        <bitmap
+            android:src="@drawable/white_blue_bg"
+            android:alpha="200" /> <!-- Adjust alpha value (0-255) for transparency -->
+    </item>
+</layer-list>

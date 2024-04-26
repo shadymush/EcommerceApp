@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Checkout"
+    android:background="@drawable/white_blue_bg"
     android:id="@+id/checkoutLayout">
 
     <TextView
@@ -33,6 +34,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Name"
+        android:textColor="#000"
         android:padding="12dp"
         android:background="@drawable/checkout_editttext"
         android:inputType="text"
@@ -47,6 +49,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Address"
+        android:textColor="#000"
         android:background="@drawable/checkout_editttext"
         android:padding="12dp"
         android:layout_marginTop="12dp"
@@ -64,6 +67,7 @@
         android:inputType="text"
         android:background="@drawable/checkout_editttext"
         android:padding="12dp"
+        android:textColor="#000"
         android:hint="Phone Number"
         app:layout_constraintEnd_toEndOf="@+id/address"
         app:layout_constraintStart_toStartOf="@+id/address"
@@ -84,16 +88,18 @@
             android:id="@+id/txtItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/andika_new_basic"
             android:text="Item Ordered:"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
+
         <TextView
+            android:id="@+id/itemName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/itemName"
+            android:layout_marginLeft="12dp"
             android:layout_toRightOf="@+id/txtItem"
-            android:text=""
-            android:layout_marginLeft="12dp"/>
+            android:fontFamily="@font/andika_new_basic"
+            android:text="" />
 
 <!--        <TextView-->
 <!--            android:id="@+id/txtQuantity"-->
@@ -117,23 +123,25 @@
 <!--            android:layout_marginLeft="12dp"/>-->
 
         <TextView
-        android:id="@+id/txtUnitPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Price:"
-        android:layout_below="@+id/txtItem"
-        android:layout_marginTop="12dp"
-        android:textStyle="bold"
-        />
-        <TextView
+            android:id="@+id/txtUnitPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/txtItem"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/andika_new_basic"
+            android:text="Price:"
+            android:textStyle="bold" />
+
+        <TextView
             android:id="@+id/unitPrice"
-            android:layout_toRightOf="@+id/txtUnitPrice"
-            android:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/txtItem"
             android:layout_marginLeft="12dp"
-            android:layout_marginTop="12dp"/>
+            android:layout_marginTop="12dp"
+            android:layout_toRightOf="@+id/txtUnitPrice"
+            android:fontFamily="@font/andika_new_basic"
+            android:text="" />
 
 <!--        <TextView-->
 <!--            android:id="@+id/txtTotalPrice"-->
@@ -162,6 +170,7 @@
         android:id="@+id/btnCheckout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/andika_new_basic"
         android:text="CHECKOUT"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
