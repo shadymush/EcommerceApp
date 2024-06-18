@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".RepayActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Repay Loan"
+        android:id="@+id/title"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp"/>
+
+    <EditText
+        android:id="@+id/etMpesaNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter MPESA Number"
+        android:inputType="phone"
+        android:layout_below="@+id/title"
+        android:layout_marginBottom="16dp"
+        android:padding="12dp"/>
+
+    <EditText
+        android:id="@+id/etRepayAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Amount"
+        android:inputType="numberDecimal"
+        android:layout_below="@+id/etMpesaNumber"
+        android:layout_marginBottom="24dp"
+        android:padding="12dp"/>
+
+    <Button
+        android:id="@+id/btnRepay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Repay"
+        android:backgroundTint="#0CC133"
+        android:textColor="#FFFFFF"
+        android:layout_below="@+id/etRepayAmount"/>
+</RelativeLayout>

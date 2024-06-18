@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+
+        tools:context=".ProfileSection">
+
+    <!-- App logo at the top of the profile section screen -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/header"
+        android:orientation="vertical">
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@mipmap/lea_logo" />
+
+    </LinearLayout>
+
+
+        <!-- User Profile Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/layout"
+            android:layout_below="@+id/header"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingBottom="16dp"
+            android:layout_marginBottom="16dp">
+
+            <!-- User Name -->
+            <TextView
+                android:id="@+id/tvUserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="User Name"
+                android:textSize="20sp"
+                android:fontFamily="@font/open_sans_bold"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- User Phone Number -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
+                <TextView
+                    android:id="@+id/tvUserPhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Phone Number: "
+                    android:fontFamily="@font/open_sans_bold"
+                    android:layout_weight="1"
+                    android:layout_gravity="start"
+                    android:layout_marginEnd="8dp"/>
+                <TextView
+                    android:id="@+id/tvPhoneNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="123456789"
+                    android:fontFamily="@font/open_sans"
+                    android:layout_gravity="center"/>
+
+
+                <ImageButton
+                    android:id="@+id/btnEditPhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_edit"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="Edit Phone"/>
+            </LinearLayout>
+
+            <!-- User Email Address -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
+                <TextView
+                    android:id="@+id/tvUserEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email Address: "
+                    android:fontFamily="@font/open_sans_bold"
+                    android:layout_gravity="start"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"/>
+                <TextView
+                    android:id="@+id/tvEmailAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/open_sans"
+                    android:text="user@example.com"/>
+                <ImageButton
+                    android:id="@+id/btnEditEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_edit"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="Edit Email"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Change Password Button -->
+        <Button
+            android:id="@+id/btnChangePassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="#0CC133"
+            android:text="Change Password"
+            android:fontFamily="@font/open_sans"/>
+
+
+
+    </RelativeLayout>
+
+
+

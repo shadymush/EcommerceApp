@@ -43,7 +43,7 @@
             android:textColor="#000" />
 
         <TextView
-            android:id="@+id/receiptAddress"
+            android:id="@+id/receiptEmailaddress"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/receiptName"
@@ -57,7 +57,7 @@
             android:id="@+id/receiptNumber"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/receiptAddress"
+            android:layout_below="@+id/receiptEmailaddress"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="12dp"
             android:fontFamily="@font/andika_new_basic"
@@ -65,7 +65,7 @@
             android:textColor="#000" />
 
         <TextView
-            android:id="@+id/receiptItem"
+            android:id="@+id/receiptAccno"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/receiptNumber"
@@ -75,11 +75,13 @@
             android:text=""
             android:textColor="#000" />
 
+
+
         <TextView
-            android:id="@+id/receiptPrice"
+            android:id="@+id/receiptAmount"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/receiptItem"
+            android:layout_below="@+id/receiptAccno"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="12dp"
             android:fontFamily="@font/andika_new_basic"

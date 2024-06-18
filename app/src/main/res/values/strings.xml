@@ -1,3 +1,24 @@
 <resources>
-    <string name="app_name">MyeCommerce</string>
+    <string name="app_name">LEA</string>
+    <string name="welcome">Welcome</string>
+    <string name="email_hint">email address</string>
+    <string name="password_hint">password</string>
+    <string name="login">LOGIN</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="admin_button">ADMIN</string>
+    <string name="name_hint">Name</string>
+    <string name="phone_hint">Phone number</string>
+    <string name="confirm_password_hint">Confirm password</string>
+    <string name="profile">Profile</string>
+    <string name="logout">Logout</string>
+    <string name="services_available">Services</string>
+    <string name="transactions">Transactions</string>
+    <string name="idnumber_hint">ID Number</string>
+    <string name="krapin_hint">KRA pin</string>
+    <string name="accno_hint">Account number</string>
+    <string name="guarantorcontact_hint">Guarantors contact</string>
+    <string name="purpose_hint">Purpose for your loan</string>
+    <string name="loanAmount_hint">Amount(numeric only)\nMin: Kshs. 10,000 Max: Kshs. 1M</string>
+    <string name="admin">Admin Login</string>
+
 </resources>

@@ -3,61 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/startLayout"
-    android:background="@drawable/white_blue_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoadingScreen">
-
-    <TextView
-        android:id="@+id/myEcommerce"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:alpha="0"
-        android:fontFamily="@font/lily_script_one"
-        android:padding="15dp"
-        android:text="myEcommerce"
-        android:textSize="60sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <Button
         android:id="@+id/btnStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/andika_new_basic"
+        android:backgroundTint="#0CC133"
+        android:fontFamily="@font/open_sans"
         android:text="START"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/myEcommerce"
-        app:layout_constraintHorizontal_bias="0.52"
-        app:layout_constraintStart_toStartOf="@+id/myEcommerce"
-        app:layout_constraintTop_toBottomOf="@+id/myEcommerce"
-        app:layout_constraintVertical_bias="0.16000003" />
-
-    <ProgressBar
-        android:id="@+id/progressBarStart"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/btnStart"
-        app:layout_constraintStart_toStartOf="@+id/btnStart"
-        app:layout_constraintTop_toBottomOf="@+id/btnStart"
-        app:layout_constraintVertical_bias="0.07999998"
-        android:visibility="gone" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:src="@drawable/blue__rectangle"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnStart"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+
+
+
 
     <ImageView
         android:id="@+id/imageView2"
@@ -68,7 +32,7 @@
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/startecommerce" />
+        app:srcCompat="@mipmap/lea_logo" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

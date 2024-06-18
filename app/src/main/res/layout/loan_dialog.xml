@@ -22,7 +22,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Order placed successfully"
+                android:gravity="center"
+                android:text="Loan submitted successfully.\n Wait for approval within \n1 hour"
                 android:textColor="#000"
                 android:layout_below="@+id/imgTick"
                 android:layout_centerHorizontal="true"
@@ -42,7 +43,7 @@
                 android:text="VIEW RECEIPT" />
 
             <Button
-                android:id="@+id/btnProducts"
+                android:id="@+id/btnDashboard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/btnReceipt"
@@ -50,7 +51,7 @@
                 android:layout_marginTop="15dp"
                 android:elevation="8dp"
                 android:fontFamily="@font/andika_new_basic"
-                android:text="BACK TO PRODUCTS SCREEN"
+                android:text="BACK TO DASHBOARD"
                 android:textStyle="bold" />
 
         </RelativeLayout>

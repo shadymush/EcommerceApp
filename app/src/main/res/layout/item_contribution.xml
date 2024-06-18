@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="8dp"
+    android:padding="16dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvContributionName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contribution Name"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvContributionDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Brief description of the contribution" />
+
+        <TextView
+            android:id="@+id/tvPostedBy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Posted by: Name" />
+
+        <Button
+            android:id="@+id/btnContribute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contribute"
+            android:layout_gravity="end"
+            android:layout_marginTop="8dp" />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
