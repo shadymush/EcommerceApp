@@ -11,8 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.myecommerce.Product;
-import com.example.myecommerce.R;
 
 import java.util.List;
 
@@ -36,9 +34,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product = productList.get(position);
-        holder.productName.setText(product.getName());
-        holder.productPrice.setText((int) product.getPrice());
-        Glide.with(context).load(product.getImageUrl()).into(holder.productImage);
+        holder.textViewProductName.setText(product.getName());
+        holder.textViewProductPrice.setText(String.valueOf(product.getPrice())); // Convert to string
+
+        Glide.with(context)
+                .load(product.getImageUrl())
+                .into(holder.imageViewProductImage);
     }
 
     @Override
@@ -46,17 +47,16 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         return productList.size();
     }
 
-    public static class ProductViewHolder extends RecyclerView.ViewHolder {
+    static class ProductViewHolder extends RecyclerView.ViewHolder {
 
-        public ImageView productImage;
-        public TextView productName;
-        public TextView productPrice;
+        TextView textViewProductName, textViewProductPrice;
+        ImageView imageViewProductImage;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
-            productImage = itemView.findViewById(R.id.productImage);
-            productName = itemView.findViewById(R.id.productName);
-            productPrice = itemView.findViewById(R.id.productPrice);
+            textViewProductName = itemView.findViewById(R.id.textViewProductName);
+            textViewProductPrice = itemView.findViewById(R.id.textViewProductPrice);
+            imageViewProductImage = itemView.findViewById(R.id.imageViewProductImage);
         }
     }
 }

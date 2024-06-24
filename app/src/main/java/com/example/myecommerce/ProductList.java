@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,9 +25,8 @@ public class ProductList extends AppCompatActivity {
     private RecyclerView recyclerViewProducts;
     private ProductAdapter productAdapter;
     private List<Product> productList;
-    private DatabaseReference databaseProducts;
 
-    private Button btnAddProduct;
+    private DatabaseReference databaseProducts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,14 +35,15 @@ public class ProductList extends AppCompatActivity {
 
         recyclerViewProducts = findViewById(R.id.recyclerViewProducts);
         recyclerViewProducts.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewProducts.setHasFixedSize(true);
 
         productList = new ArrayList<>();
         productAdapter = new ProductAdapter(this, productList);
         recyclerViewProducts.setAdapter(productAdapter);
 
-        databaseProducts = FirebaseDatabase.getInstance().getReference("Products");
+        databaseProducts = FirebaseDatabase.getInstance().getReference("products");
 
-        btnAddProduct = findViewById(R.id.btnAddProduct);
+        Button btnAddProduct = findViewById(R.id.btnAddProduct);
         btnAddProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,20 +51,24 @@ public class ProductList extends AppCompatActivity {
             }
         });
 
+        fetchProducts();
+    }
+
+    private void fetchProducts() {
         databaseProducts.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 productList.clear();
-                for (DataSnapshot productSnapshot : snapshot.getChildren()) {
-                    Product product = productSnapshot.getValue(Product.class);
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Product product = postSnapshot.getValue(Product.class);
                     productList.add(product);
                 }
                 productAdapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                // Handle possible errors.
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(ProductList.this, "Failed to load products", Toast.LENGTH_SHORT).show();
             }
         });
     }
