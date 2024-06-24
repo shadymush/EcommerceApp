@@ -2,6 +2,7 @@ package com.example.myecommerce;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,16 +28,14 @@ public class AdminDashboardActivity extends AppCompatActivity {
                 selectedFragment = new UserListFragment();
             } else if (itemId == R.id.nav_loans) {
                 selectedFragment = new LoanRequestsFragment();
+            } else if (itemId == R.id.menu_add_article) {
+                selectedFragment = new AddArticleFragment();
             }
             if (selectedFragment != null) {
                 loadFragment(selectedFragment);
             }
             return true;
         });
-
-
-
-
 
         // Load the default fragment
         if (savedInstanceState == null) {
@@ -49,5 +48,17 @@ public class AdminDashboardActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == R.id.menu_add_article) {
+            loadFragment(new AddArticleFragment());
+            return true;
+        }
+        // Handle other menu items if needed
+
+        return super.onOptionsItemSelected(item);
     }
 }

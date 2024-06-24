@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,8 +22,8 @@ public class AdminLogin extends AppCompatActivity {
 
     private EditText adminEmail, adminPassword;
     private Button btnAdminLogin;
-    private FirebaseAuth auth;
-    private DatabaseReference databasereference;
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,57 +34,65 @@ public class AdminLogin extends AppCompatActivity {
         adminPassword = findViewById(R.id.adminPassword);
         btnAdminLogin = findViewById(R.id.btnAdminLogin);
 
-        // Initialization for Firebase authentication and database
-        auth = FirebaseAuth.getInstance();
-        databasereference = FirebaseDatabase.getInstance().getReference("Admins");
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        // Login button on click listener
         btnAdminLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email = adminEmail.getText().toString().trim();
-                String pass = adminPassword.getText().toString().trim();
+                String password = adminPassword.getText().toString().trim();
 
-                if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplicationContext(), "Please enter email address!", Toast.LENGTH_SHORT).show();
-                    return;
+                loginAdmin(email, password);
+            }
+        });
+    }
+
+    private void loginAdmin(String email, String password) {
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // Sign in success
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        if (user != null) {
+                            checkIfAdmin(user.getEmail());
+                        }
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Toast.makeText(AdminLogin.this, "Authentication failed.",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void checkIfAdmin(String email) {
+        mDatabase.child("admins").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                boolean isAdmin = false;
+                for (DataSnapshot adminSnapshot : dataSnapshot.getChildren()) {
+                    String adminEmail = adminSnapshot.child("email").getValue(String.class);
+                    if (adminEmail != null && adminEmail.equals(email)) {
+                        isAdmin = true;
+                        break;
+                    }
                 }
-                if (TextUtils.isEmpty(pass)) {
-                    Toast.makeText(getApplicationContext(), "Please enter a password!", Toast.LENGTH_SHORT).show();
-                    return;
+
+                if (isAdmin) {
+                    // User is an admin, proceed to admin dashboard
+                    Intent adminIntent = new Intent(AdminLogin.this, AdminDashboardActivity.class);
+                    startActivity(adminIntent);
+                    finish();
+                } else {
+                    // User is not an admin
+                    Toast.makeText(AdminLogin.this, "You do not have admin privileges.", Toast.LENGTH_SHORT).show();
+                    mAuth.signOut();
                 }
+            }
 
-                // Authenticate user
-                auth.signInWithEmailAndPassword(email, pass)
-                        .addOnCompleteListener(AdminLogin.this, task -> {
-                            if (task.isSuccessful()) {
-                                // Check if the user is an admin
-                                FirebaseUser user = auth.getCurrentUser();
-                                if (user != null) {
-                                    String userId = user.getUid();
-                                    databasereference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            if (snapshot.exists()) {
-                                                // User is an admin, redirect to AdminDashboardActivity
-                                                startActivity(new Intent(AdminLogin.this, AdminDashboardActivity.class));
-                                                finish();
-                                            } else {
-                                                Toast.makeText(AdminLogin.this, "Access Denied! Not an Admin.", Toast.LENGTH_SHORT).show();
-                                                auth.signOut();
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError error) {
-                                            Toast.makeText(AdminLogin.this, "Database error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                                }
-                            } else {
-                                Toast.makeText(AdminLogin.this, "Authentication failed. " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(AdminLogin.this, "Failed to check admin data", Toast.LENGTH_SHORT).show();
             }
         });
     }

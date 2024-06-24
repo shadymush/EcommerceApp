@@ -8,4 +8,8 @@
         android:id="@+id/nav_loans"
         android:icon="@drawable/ic_loans"
         android:title="Loans" />
+    <item
+        android:id="@+id/menu_add_article"
+        android:icon="@drawable/ic_articles"
+        android:title="Add Article" />
 </menu>

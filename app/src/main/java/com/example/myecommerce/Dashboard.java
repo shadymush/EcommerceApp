@@ -2,6 +2,8 @@ package com.example.myecommerce;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -20,13 +22,22 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Dashboard extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private TextView dashboardGreetings, loanBalance, dueDate;
     private ImageButton btnNotification, btnProfile, btnLogout;
-    private Button btnRepay, btnWithdraw, btnLoanServices, btnCommunityEngagement, btnAgricProducts, btnArticles;
+    private Button btnRepay, btnWithdraw, btnLoanServices, btnCommunityEngagement, btnAgricProducts;
+
+    // RecyclerView and Adapter for articles
+    private RecyclerView recyclerViewArticles;
+    private ArticleAdapter articleAdapter;
+    private ArrayList<Article> articleList;
+    private DatabaseReference databaseArticles;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -44,46 +55,55 @@ public class Dashboard extends AppCompatActivity {
         btnLoanServices = findViewById(R.id.btnLoanServices);
         btnCommunityEngagement = findViewById(R.id.btnCommunityEngagement);
         btnAgricProducts = findViewById(R.id.btnAgricProducts);
-        btnArticles = findViewById(R.id.btnArticles);
         btnLogout = findViewById(R.id.btnLogout);
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        //display user name on dashboard
+        // Setup RecyclerView for articles
+        recyclerViewArticles = findViewById(R.id.recyclerViewArticles);
+        recyclerViewArticles.setLayoutManager(new LinearLayoutManager(this));
+
+        articleList = new ArrayList<>();
+        articleAdapter = new ArticleAdapter(this, articleList);
+        recyclerViewArticles.setAdapter(articleAdapter);
+
+        databaseArticles = FirebaseDatabase.getInstance().getReference("articles");
+        fetchArticles();
+
+
+
+        // Display user name on dashboard
         loadUserName();
 
-        //repay button on click listener
+        // Repay button on click listener
         btnRepay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent repay = new Intent(Dashboard.this, RepayActivity.class);
                 startActivity(repay);
-               // finish();
             }
         });
 
-        //withdraw button on click listener
+        // Withdraw button on click listener
         btnWithdraw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent withdraw = new Intent(Dashboard.this, WithdrawActivity.class);
                 startActivity(withdraw);
-               // finish();
             }
         });
 
-        //clicklisteners for Image Buttons go here, logout, notification and account
-//btnprofile listener
+        // Click listeners for Image Buttons go here, logout, notification and account
+        // btnProfile listener
         btnProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent profile = new Intent(Dashboard.this, ProfileSection.class);
                 startActivity(profile);
-                //finish();
             }
         });
 
-        //btnlogout listener
+        // btnLogout listener
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,9 +111,8 @@ public class Dashboard extends AppCompatActivity {
             }
         });
 
-        //services offered on click listeners
-
-        //service 1
+        // Services offered on click listeners
+        // Service 1
         btnLoanServices.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,7 +121,7 @@ public class Dashboard extends AppCompatActivity {
             }
         });
 
-        //service 2 community engagements
+        // Service 2 community engagements
         btnCommunityEngagement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,7 +130,16 @@ public class Dashboard extends AppCompatActivity {
             }
         });
 
+        // Service 3 agricultural products
+        btnAgricProducts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent productIntent = new Intent(Dashboard.this, ProductList.class);
+                startActivity(productIntent);
+            }
+        });
     }
+
 
     private void logoutUser() {
         mAuth.signOut();
@@ -148,5 +176,24 @@ public class Dashboard extends AppCompatActivity {
             startActivity(loginIntent);
             finish();
         }
+    }
+
+    private void fetchArticles() {
+        databaseArticles.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                articleList.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Article article = dataSnapshot.getValue(Article.class);
+                    articleList.add(article);
+                }
+                articleAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(Dashboard.this, "Failed to load articles", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

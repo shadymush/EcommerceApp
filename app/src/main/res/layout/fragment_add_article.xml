@@ -1,0 +1,44 @@
+<!-- fragment_add_article.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/etArticleName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Article Name"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/etArticleDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Article Description"
+        android:inputType="textMultiLine"
+        android:lines="4" />
+
+    <ImageView
+        android:id="@+id/imgArticleImage"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="Article Image"
+        android:scaleType="centerCrop"
+        android:background="@android:color/darker_gray" />
+
+    <Button
+        android:id="@+id/btnSelectImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Image" />
+
+    <Button
+        android:id="@+id/btnUploadArticle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Upload Article"
+        android:layout_marginTop="16dp" />
+</LinearLayout>
