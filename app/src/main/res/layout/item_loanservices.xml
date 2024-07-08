@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:layout_margin="8dp"
+    android:background="@drawable/rounded_background"
+    android:layout_marginBottom="8dp">
+
+    <TextView
+        android:id="@+id/tvLoanAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Loan Amount: KSHS. 0.00"
+        android:textSize="16sp"
+        android:fontFamily="@font/open_sans_bold" />
+
+    <TextView
+        android:id="@+id/tvDueDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Due Date: N/A"
+        android:textSize="14sp"
+        android:fontFamily="@font/open_sans" />
+
+    <TextView
+        android:id="@+id/tvLoanStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Status: Pending"
+        android:textSize="14sp"
+        android:fontFamily="@font/open_sans" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="end">
+
+        <Button
+            android:id="@+id/btnRepayLoan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Repay"
+            android:layout_marginRight="8dp"
+            android:backgroundTint="#0CC133"
+            android:fontFamily="@font/open_sans" />
+
+        <Button
+            android:id="@+id/btnWithdrawLoan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Withdraw"
+            android:backgroundTint="#0CC133"
+            android:fontFamily="@font/open_sans" />
+
+    </LinearLayout>
+</LinearLayout>

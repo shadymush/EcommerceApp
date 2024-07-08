@@ -28,11 +28,19 @@
         android:text="Purpose"
         android:textSize="14sp" />
 
+    <TextView
+        android:id="@+id/loanStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loanPurpose"
+        android:text="Loan Status"
+        android:textSize="16sp" />
+
     <Button
         android:id="@+id/btnApprove"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/loanPurpose"
+        android:layout_below="@id/loanStatus"
         android:layout_marginTop="8dp"
         android:backgroundTint="#0CC133"
         android:text="Approve" />
@@ -41,7 +49,7 @@
         android:id="@+id/btnReject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/loanPurpose"
+        android:layout_below="@id/loanStatus"
         android:layout_toEndOf="@id/btnApprove"
         android:layout_marginTop="8dp"
         android:layout_marginStart="8dp"

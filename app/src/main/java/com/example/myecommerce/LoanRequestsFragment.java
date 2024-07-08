@@ -1,21 +1,17 @@
 package com.example.myecommerce;
 
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +30,7 @@ public class LoanRequestsFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerViewLoans);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         loanList = new ArrayList<>();
-        loanAdapter = new LoanAdapter(loanList);
+        loanAdapter = new LoanAdapter(getContext(), loanList);
         recyclerView.setAdapter(loanAdapter);
 
         db = FirebaseFirestore.getInstance();

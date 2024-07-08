@@ -2,6 +2,7 @@ package com.example.myecommerce;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,21 +24,22 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Dashboard extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
-    private TextView dashboardGreetings, loanBalance, dueDate;
-    private ImageButton btnNotification, btnProfile, btnLogout;
-    private Button btnRepay, btnWithdraw, btnLoanServices, btnCommunityEngagement, btnAgricProducts;
+    private TextView dashboardGreetings;
+    private ImageButton btnProfile, btnLogout;
+    private Button btnLoanServices, btnCommunityEngagement, btnAgricProducts;
 
     // RecyclerView and Adapter for articles
     private RecyclerView recyclerViewArticles;
     private ArticleAdapter articleAdapter;
     private ArrayList<Article> articleList;
     private DatabaseReference databaseArticles;
+
+   // private LoanViewModel loanViewModel;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -46,16 +48,11 @@ public class Dashboard extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
 
         dashboardGreetings = findViewById(R.id.dashboardGreetings);
-        loanBalance = findViewById(R.id.loanBalance);
-        dueDate = findViewById(R.id.dueDate);
-        btnNotification = findViewById(R.id.btnNotification);
         btnProfile = findViewById(R.id.btnProfile);
-        btnRepay = findViewById(R.id.btnRepay);
-        btnWithdraw = findViewById(R.id.btnWithdraw);
+        btnLogout = findViewById(R.id.btnLogout);
         btnLoanServices = findViewById(R.id.btnLoanServices);
         btnCommunityEngagement = findViewById(R.id.btnCommunityEngagement);
         btnAgricProducts = findViewById(R.id.btnAgricProducts);
-        btnLogout = findViewById(R.id.btnLogout);
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -70,31 +67,13 @@ public class Dashboard extends AppCompatActivity {
         databaseArticles = FirebaseDatabase.getInstance().getReference("articles");
         fetchArticles();
 
-
+        // Initialize the ViewModel
+        //loanViewModel = new ViewModelProvider(this).get(LoanViewModel.class);
 
         // Display user name on dashboard
         loadUserName();
 
-        // Repay button on click listener
-        btnRepay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent repay = new Intent(Dashboard.this, RepayActivity.class);
-                startActivity(repay);
-            }
-        });
-
-        // Withdraw button on click listener
-        btnWithdraw.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent withdraw = new Intent(Dashboard.this, WithdrawActivity.class);
-                startActivity(withdraw);
-            }
-        });
-
-        // Click listeners for Image Buttons go here, logout, notification and account
-        // btnProfile listener
+        // Click listeners for buttons
         btnProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,7 +82,6 @@ public class Dashboard extends AppCompatActivity {
             }
         });
 
-        // btnLogout listener
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,62 +89,56 @@ public class Dashboard extends AppCompatActivity {
             }
         });
 
-        // Services offered on click listeners
-        // Service 1
         btnLoanServices.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent loans = new Intent(Dashboard.this, LoanServices.class);
-                startActivity(loans);
+                Intent loanServices = new Intent(Dashboard.this, LoanServices.class);
+                startActivity(loanServices);
             }
         });
 
-        // Service 2 community engagements
         btnCommunityEngagement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent communityIntent = new Intent(Dashboard.this, CommunityContributions.class);
-                startActivity(communityIntent);
+                Intent community = new Intent(Dashboard.this, CommunityContributions.class);
+                startActivity(community);
             }
         });
 
-        // Service 3 agricultural products
         btnAgricProducts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent productIntent = new Intent(Dashboard.this, ProductList.class);
-                startActivity(productIntent);
+                Intent agricProducts = new Intent(Dashboard.this, ProductList.class);
+                startActivity(agricProducts);
             }
         });
+
+       // handleNotificationIntent();
     }
 
-
     private void logoutUser() {
-        mAuth.signOut();
-        Intent loginIntent = new Intent(Dashboard.this, Login.class);
-        loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(loginIntent);
-        finish(); // Finish the Dashboard activity so the user cannot go back to it
+        FirebaseAuth.getInstance().signOut();
+        Intent login = new Intent(Dashboard.this, Login.class);
+        startActivity(login);
+        finish();
     }
 
     private void loadUserName() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
-            mDatabase.child("users").child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            mDatabase.child("users").child(userId).addValueEventListener(new ValueEventListener() {
                 @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()) {
-                        String name = dataSnapshot.child("name").getValue(String.class);
-                        dashboardGreetings.setText("Welcome " + name);
-                    } else {
-                        Toast.makeText(Dashboard.this, "User data not found", Toast.LENGTH_SHORT).show();
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    String firstName = snapshot.child("firstName").getValue(String.class);
+                    if (firstName != null) {
+                        dashboardGreetings.setText("Hi " + firstName + ",");
                     }
                 }
 
                 @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Toast.makeText(Dashboard.this, "Failed to load user data", Toast.LENGTH_SHORT).show();
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(Dashboard.this, "Failed to load user data.", Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
@@ -183,8 +155,8 @@ public class Dashboard extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 articleList.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Article article = dataSnapshot.getValue(Article.class);
+                for (DataSnapshot articleSnapshot : snapshot.getChildren()) {
+                    Article article = articleSnapshot.getValue(Article.class);
                     articleList.add(article);
                 }
                 articleAdapter.notifyDataSetChanged();
@@ -192,8 +164,14 @@ public class Dashboard extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(Dashboard.this, "Failed to load articles", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Dashboard.this, "Failed to fetch articles.", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+//    private void handleNotificationIntent() {
+//        // Handle notification clicks and provide user feedback
+//        // This method can be expanded to handle different types of notifications
+//        Toast.makeText(this, "Notification Clicked", Toast.LENGTH_SHORT).show();
+//    }
 }

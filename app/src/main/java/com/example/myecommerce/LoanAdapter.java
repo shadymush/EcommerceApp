@@ -1,5 +1,6 @@
 package com.example.myecommerce;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,36 +11,42 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
 public class LoanAdapter extends RecyclerView.Adapter<LoanAdapter.LoanViewHolder> {
 
+    private Context context;
     private List<Loan> loanList;
     private FirebaseFirestore db;
 
-    public LoanAdapter(List<Loan> loanList) {
+    public LoanAdapter(Context context, List<Loan> loanList) {
+        this.context = context;
         this.loanList = loanList;
-        db = FirebaseFirestore.getInstance();
+        this.db = FirebaseFirestore.getInstance();
     }
 
     @NonNull
     @Override
     public LoanViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_loan, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_loansadmin, parent, false);
         return new LoanViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull LoanViewHolder holder, int position) {
         Loan loan = loanList.get(position);
-        holder.loanEmail.setText("Email: " + loan.getEmail());
-        holder.loanAmount.setText("Amount: $" + loan.getAmount());
-        holder.loanPurpose.setText("Purpose: " + loan.getLoan_purpose());
+        holder.loanAmount.setText("Amount: " + loan.getAmount());
+        holder.loanStatus.setText("Status: " + loan.getStatus());
 
-        holder.btnApprove.setOnClickListener(v -> updateLoanStatus(loan, "Approved"));
-        holder.btnReject.setOnClickListener(v -> updateLoanStatus(loan, "Rejected"));
+        holder.btnApprove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                approveLoan(loan);
+            }
+        });
     }
 
     @Override
@@ -47,30 +54,42 @@ public class LoanAdapter extends RecyclerView.Adapter<LoanAdapter.LoanViewHolder
         return loanList.size();
     }
 
-    private void updateLoanStatus(Loan loan, String status) {
-        db.collection("loans").document(loan.getId())
-                .update("status", status)
-                .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(db.getApp().getApplicationContext(), "Loan " + status, Toast.LENGTH_SHORT).show();
-                    notifyDataSetChanged();
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(db.getApp().getApplicationContext(), "Failed to update loan status", Toast.LENGTH_SHORT).show();
+    private void approveLoan(Loan loan) {
+        loan.setStatus("Approved");
+        db.collection("loans").document(loan.getId()).set(loan)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(context, "Loan Approved", Toast.LENGTH_SHORT).show();
+                        notifyDataSetChanged();
+
+                        // Update user's loan balance in the database
+                        updateUserLoanBalance(loan);
+
+                        // Send notification to the user
+                        String userToken = loan.getId();
+                        String title = "Loan Approved";
+                        String message = "Your loan of " + loan.getAmount() + " has been approved.";
+                        FCMService.sendNotification(userToken, title, message);
+                    }
                 });
     }
 
-    public static class LoanViewHolder extends RecyclerView.ViewHolder {
+    private void updateUserLoanBalance(Loan loan) {
+        // Logic to update the user's loan balance in the database
+        // This should be implemented based on your specific database structure
+    }
 
-        TextView loanEmail, loanAmount, loanPurpose;
-        Button btnApprove, btnReject;
+    static class LoanViewHolder extends RecyclerView.ViewHolder {
+
+        TextView loanAmount, loanStatus;
+        Button btnApprove;
 
         public LoanViewHolder(@NonNull View itemView) {
             super(itemView);
-            loanEmail = itemView.findViewById(R.id.loanEmail);
             loanAmount = itemView.findViewById(R.id.loanAmount);
-            loanPurpose = itemView.findViewById(R.id.loanPurpose);
+            loanStatus = itemView.findViewById(R.id.loanStatus);
             btnApprove = itemView.findViewById(R.id.btnApprove);
-            btnReject = itemView.findViewById(R.id.btnReject);
         }
     }
 }

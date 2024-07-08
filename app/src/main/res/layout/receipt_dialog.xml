@@ -1,93 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="60dp"
-    android:elevation="8dp"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp">
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="false"
-            android:layout_alignParentEnd="true"
-            android:backgroundTint="#fff"
-            app:backgroundTint="#fff"
-            app:rippleColor="#fff"
-            android:src="@drawable/ic_cancel"
-            android:id="@+id/close"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:text="RECEIPT"
-            android:layout_below="@+id/close"
-            android:id="@+id/labelReceipt"
-            android:layout_marginTop="12dp"
-            android:layout_centerHorizontal="true"
-            android:textColor="#000"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp">
 
-        <TextView
-            android:id="@+id/receiptName"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/labelReceipt"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="12dp"
-            android:fontFamily="@font/andika_new_basic"
-            android:text=""
-            android:textColor="#000" />
+    <TextView
+        android:id="@+id/receiptEmailaddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email: " />
 
-        <TextView
-            android:id="@+id/receiptEmailaddress"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/receiptName"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="12dp"
-            android:fontFamily="@font/andika_new_basic"
-            android:text=""
-            android:textColor="#000" />
+    <TextView
+        android:id="@+id/receiptNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Phone: " />
 
-        <TextView
-            android:id="@+id/receiptNumber"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/receiptEmailaddress"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="12dp"
-            android:fontFamily="@font/andika_new_basic"
-            android:text=""
-            android:textColor="#000" />
+    <TextView
+        android:id="@+id/receiptAccno"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Account No: " />
 
-        <TextView
-            android:id="@+id/receiptAccno"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/receiptNumber"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="12dp"
-            android:fontFamily="@font/andika_new_basic"
-            android:text=""
-            android:textColor="#000" />
+    <TextView
+        android:id="@+id/receiptAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Amount: " />
 
+    <TextView
+        android:id="@+id/receiptDueDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Due Date: " />
 
+    <Button
+        android:id="@+id/close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Close" />
 
-        <TextView
-            android:id="@+id/receiptAmount"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/receiptAccno"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="12dp"
-            android:fontFamily="@font/andika_new_basic"
-            android:text=""
-            android:textColor="#000" />
-
-    </RelativeLayout>
-
-</androidx.cardview.widget.CardView>
+</LinearLayout>
